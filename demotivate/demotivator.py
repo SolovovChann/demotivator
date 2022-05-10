@@ -22,6 +22,16 @@ class Demotivator:
             self.padding = format_padding(padding)
             self.margin = format_padding(margin)
 
+        def __call__(self, image: Image.Image) -> Image.Image:
+            """
+            ## Frame()
+            Draw inner and outer frames
+            """
+            inner = self.draw_inner_frame(image)
+            outer = self.draw_outer_frame(inner)
+
+            return outer
+
         def draw_inner_frame(self, source: Image.Image) -> Image.Image:
             """
             ## Frame.draw_inner_frame()
