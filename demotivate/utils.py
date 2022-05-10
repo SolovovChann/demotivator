@@ -4,7 +4,7 @@ from PIL import Image
 
 
 Color: TypeAlias = int | str | tuple[int, int, int] | tuple[int, int, int, int]
-ImageSource: TypeAlias = Image.Image | str | bytes | BytesIO
+Source: TypeAlias = Image.Image | str | bytes | BytesIO
 Indent: TypeAlias = tuple[int, int, int, int]
 Number: TypeAlias = int | float
 Position: TypeAlias = tuple[int, int]
