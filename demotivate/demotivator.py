@@ -32,16 +32,16 @@ class Demotivator:
 
             return outer
 
-        def draw_inner_frame(self, source: Image.Image) -> Image.Image:
+        def draw_inner_frame(self, image: Image.Image) -> Image.Image:
             """
             ## Frame.draw_inner_frame()
             Draw a frame from image to frame
             """
             expand = (
-                source.width + sum(self.padding[::2]),
-                source.height + sum(self.padding[1::2]))
+                image.width + sum(self.padding[::2]),
+                image.height + sum(self.padding[1::2]))
             inner = Image.new('RGB', expand, self.background)
-            inner.paste(source, self.padding[:2])
+            inner.paste(image, self.padding[:2])
 
             draw = ImageDraw.Draw(inner, 'RGB')
             draw.rectangle(
@@ -51,15 +51,15 @@ class Demotivator:
 
             return inner
 
-        def draw_outer_frame(self, source: Image.Image) -> Image.Image:
+        def draw_outer_frame(self, image: Image.Image) -> Image.Image:
             """
             ## Frame.draw_outer_frame()
             Draw a frame from the inner frame to the end of the image
             """
             expand = (
-                source.width + sum(self.margin[::2]),
-                source.height + sum(self.margin[1::2]))
+                image.width + sum(self.margin[::2]),
+                image.height + sum(self.margin[1::2]))
             outer = Image.new('RGB', expand, self.background)
-            outer.paste(source, self.margin[:2])
+            outer.paste(image, self.margin[:2])
 
             return outer
