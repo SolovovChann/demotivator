@@ -1,5 +1,6 @@
-from .utils import Color, Indent, format_padding
+from .utils import Color, Indent, Source, format_padding
 from PIL import Image, ImageDraw, ImageFont
+from io import BytesIO
 
 
 class Demotivator:
@@ -63,3 +64,17 @@ class Demotivator:
             outer.paste(image, self.margin[:2])
 
             return outer
+
+    def __init__(self, image: Source, font: Source) -> None:
+        match image:
+            case Image.Image():
+                self.image = image
+
+            case str() | bytes() | BytesIO():
+                self.image = Image.open(image)
+
+            case object:
+                message = 'Unable to load Image of type "%s"'
+                raise TypeError(message % type(object))
+
+        self.font = ImageFont.truetype(font, min(self.image.size) // 16)
