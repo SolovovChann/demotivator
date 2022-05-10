@@ -78,3 +78,20 @@ class Demotivator:
                 raise TypeError(message % type(object))
 
         self.font = ImageFont.truetype(font, min(self.image.size) // 16)
+
+    def __call__(self, frame: Frame, caption: str) -> Image.Image:
+        """
+        # Demotivator()
+        Draw inner and outer borders and text
+        """
+        framed = frame(self.image)
+        text_position = (
+            framed.width / 2,
+            framed.height - frame.margin[3] / 2)
+
+        draw = ImageDraw.Draw(framed, 'RGB')
+        draw.text(
+            text_position, caption, frame.foreground,
+            self.font, 'mm', align='center')
+
+        return framed
