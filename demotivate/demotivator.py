@@ -41,7 +41,7 @@ class Demotivator:
             expand = (
                 image.width + sum(self.padding[::2]),
                 image.height + sum(self.padding[1::2]))
-            inner = Image.new('RGB', expand, self.background)
+            inner = Image.new('RGB', tuple(map(int, expand)), self.background)
             inner.paste(image, self.padding[:2])
 
             draw = ImageDraw.Draw(inner, 'RGB')
@@ -60,7 +60,7 @@ class Demotivator:
             expand = (
                 image.width + sum(self.margin[::2]),
                 image.height + sum(self.margin[1::2]))
-            outer = Image.new('RGB', expand, self.background)
+            outer = Image.new('RGB', tuple(map(int, expand)), self.background)
             outer.paste(image, self.margin[:2])
 
             return outer
