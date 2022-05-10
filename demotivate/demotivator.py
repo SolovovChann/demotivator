@@ -40,3 +40,16 @@ class Demotivator:
                 width=self.width)
 
             return inner
+
+        def draw_outer_frame(self, source: Image.Image) -> Image.Image:
+            """
+            ## Frame.draw_outer_frame()
+            Draw a frame from the inner frame to the end of the image
+            """
+            expand = (
+                source.width + sum(self.margin[::2]),
+                source.height + sum(self.margin[1::2]))
+            outer = Image.new('RGB', expand, self.background)
+            outer.paste(source, self.margin[:2])
+
+            return outer
