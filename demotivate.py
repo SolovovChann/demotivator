@@ -50,42 +50,6 @@ class Indentation:
                 raise ValueError(message % type(object))
 
 
-def expand_image(
-    image: Image.Image,
-    indent: Indentation,
-    color: Color = '#000'
-) -> Image.Image:
-    """Expand new image with indentation"""
-    width = image.width + indent.left + indent.right
-    height = image.height + indent.top + indent.bottom
-    extended = Image.new('RGB', (width, height), color)
-    extended.paste(image, (indent.left, indent.top))
-
-    return extended
-
-
-@click.command(context_settings={'show_default': True})
-@click.argument('caption')
-@click.argument('source')
-@click.option('-f', '--font', default='font.ttf')
-@click.option('-o', '--output', default='demotivator.jpg', type=click.File('wb'))
-@click.version_option(__version__)
-def create_demotivator(caption, source, output: click.File, font) -> None:
-    """Make demotivator from source image"""
-    regex = re.compile(r'https?:\/\/.+', re.M)
-
-    if isinstance(source, str) and regex.match(source):
-        source = Image.open(request.urlopen(source))
-
-    try:
-        demo = Demotivator(source, font)
-        demo.demotivate(caption).save(output)
-        click.echo('File "%s" successfuly saved' % output.name)
-    except Exception as exc:
-        click.echo('Something went wrong: "%s"' % exc)
-        exit(1)
-
-
 class Demotivator:
     """Make a demotivator meme from any image"""
 
@@ -137,6 +101,42 @@ class Demotivator:
             align='center')
 
         return framed
+
+
+def expand_image(
+    image: Image.Image,
+    indent: 'Indentation',
+    color: Color = '#000'
+) -> Image.Image:
+    """Expand new image with indentation"""
+    width = image.width + indent.left + indent.right
+    height = image.height + indent.top + indent.bottom
+    extended = Image.new('RGB', (width, height), color)
+    extended.paste(image, (indent.left, indent.top))
+
+    return extended
+
+
+@click.command(context_settings={'show_default': True})
+@click.argument('caption')
+@click.argument('source')
+@click.option('-f', '--font', default='font.ttf')
+@click.option('-o', '--output', default='demotivator.jpg', type=click.File('wb'))
+@click.version_option(__version__)
+def create_demotivator(caption, source, output: click.File, font) -> None:
+    """Make demotivator from source image"""
+    regex = re.compile(r'https?:\/\/.+', re.M)
+
+    if isinstance(source, str) and regex.match(source):
+        source = Image.open(request.urlopen(source))
+
+    try:
+        demo = Demotivator(source, font)
+        demo.demotivate(caption).save(output)
+        click.echo('File "%s" successfuly saved' % output.name)
+    except Exception as exc:
+        click.echo('Something went wrong: "%s"' % exc)
+        exit(1)
 
 
 if __name__ == '__main__':
