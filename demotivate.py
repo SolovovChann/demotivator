@@ -119,24 +119,31 @@ def expand_image(
 @click.command(context_settings={'show_default': True})
 @click.argument('caption')
 @click.argument('source')
-@click.option('-f', '--font', default='font.ttf')
+@click.option('-f', '--font', default='font.ttf', type=click.File())
 @click.option('-o', '--output', default='demotivator.jpg', type=click.File('wb'))
 @click.version_option(__version__)
-def create_demotivator(caption, source, output: click.File, font) -> None:
+def create_demotivator(
+    caption: str,
+    source: str,
+    output: click.File,
+    font: click.File
+) -> Image.Image:
     """Make demotivator from source image"""
     regex = re.compile(r'https?:\/\/.+', re.M)
 
     if isinstance(source, str) and regex.match(source):
         source = Image.open(request.urlopen(source))
 
-    try:
-        demo = Demotivator(source, font)
-        demo.demotivate(caption).save(output)
-        click.echo('File "%s" successfuly saved' % output.name)
-    except Exception as exc:
-        click.echo('Something went wrong: "%s"' % exc)
-        exit(1)
+    demo = Demotivator(source, font).demotivate(caption)
+    demo.save(output)
+    click.echo('File "%s" successfuly saved')
+
+    return demo
 
 
 if __name__ == '__main__':
-    create_demotivator()
+    try:
+        create_demotivator()
+    except Exception as exc:
+        click.echo('Something went wrong: "%s"' % exc)
+        exit(1)
