@@ -9,9 +9,9 @@ import click
 from PIL import Image, ImageDraw, ImageFont
 
 Color: TypeAlias = float | tuple[float, ...]
+Font = ImageFont.ImageFont | ImageFont.FreeTypeFont | ImageFont.TransposedFont
 Size: TypeAlias = tuple[int, int]
 Source: TypeAlias = str | bytes | IOBase | Path
-Font = ImageFont.ImageFont | ImageFont.FreeTypeFont | ImageFont.TransposedFont
 
 __version__ = '0.1.0'
 
