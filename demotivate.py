@@ -2,12 +2,11 @@
 import re
 from io import IOBase
 from pathlib import Path
-from typing import Iterable, NamedTuple, TypeAlias
+from typing import Iterable, TypeAlias
 from urllib import request
 
 import click
 from PIL import Image, ImageDraw, ImageFont
-
 
 Color: TypeAlias = float | tuple[float, ...]
 Indent: TypeAlias = int | Iterable[int]
@@ -18,35 +17,37 @@ Font = ImageFont.ImageFont | ImageFont.FreeTypeFont | ImageFont.TransposedFont
 __version__ = '0.1.0'
 
 
-class Indentation(NamedTuple):
+class Indentation:
     left: int
     top: int
     right: int
     bottom: int
 
+    def __init__(self, indent: Indent) -> 'Indentation':
+        """Convert css-like padding to 4 int tuple"""
+        match indent:
+            case int(padding) | [padding]:
+                self.left = self.top = self.right = self.bottom = padding
 
-def get_indentation(indent: Indent) -> Indentation:
-    """Convert css-like padding to 4 int tuple"""
-    match indent:
-        case int(padding) | [padding]:
-            return Indentation(padding, padding, padding, padding)
+            case [vertical, horizontal]:
+                self.right = self.left = horizontal
+                self.top = self.bottom = vertical
 
-        case [vertical, horizontal]:
-            return Indentation(horizontal, vertical, horizontal, vertical)
+            case [top, horizontal, bottom]:
+                self.right = self.left = horizontal
+                self.top = top
+                self.bottom = bottom
 
-        case [top, horizontal, bottom]:
-            return Indentation(horizontal, top, horizontal, bottom)
+            case [*padding] if len(padding) == 4:
+                self.left = self.top = self.right = self.bottom = padding
 
-        case [*padding] if len(padding) == 4:
-            return Indentation(*padding)
+            case [*padding] if len(padding) > 4:
+                message = 'Padding with %i elements is not supported'
+                raise ValueError(message % len(padding))
 
-        case [*padding] if len(padding) > 4:
-            message = 'Padding with %i elements is not supported'
-            raise ValueError(message % len(padding))
-
-        case object:
-            message = 'Padding type "%s" is not supported'
-            raise ValueError(message % type(object))
+            case object:
+                message = 'Padding type "%s" is not supported'
+                raise ValueError(message % type(object))
 
 
 def expand_image(
@@ -121,8 +122,8 @@ class Demotivator:
         """Draw inner and outer borders and text"""
         if frame is None:
             indent = min(self.image.size) // 50
-            padding = get_indentation(min(self.image.size) // 50)
-            margin = get_indentation([indent * 4, indent * 4, indent * 12])
+            padding = Indentation(min(self.image.size) // 50)
+            margin = Indentation([indent * 4, indent * 4, indent * 12])
             frame = self.Frame(padding, margin)
 
         framed = frame.draw(self.image)
