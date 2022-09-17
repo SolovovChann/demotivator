@@ -2,14 +2,13 @@
 import re
 from io import IOBase
 from pathlib import Path
-from typing import Iterable, TypeAlias
+from typing import TypeAlias
 from urllib import request
 
 import click
 from PIL import Image, ImageDraw, ImageFont
 
 Color: TypeAlias = float | tuple[float, ...]
-Indent: TypeAlias = int | Iterable[int]
 Size: TypeAlias = tuple[int, int]
 Source: TypeAlias = str | bytes | IOBase | Path
 Font = ImageFont.ImageFont | ImageFont.FreeTypeFont | ImageFont.TransposedFont
@@ -23,10 +22,10 @@ class Indentation:
     right: int
     bottom: int
 
-    def __init__(self, indent: Indent) -> 'Indentation':
+    def __init__(self, *indent: int) -> 'Indentation':
         """Convert css-like padding to 4 int tuple"""
         match indent:
-            case int(padding) | [padding]:
+            case [padding]:
                 self.left = self.top = self.right = self.bottom = padding
 
             case [vertical, horizontal]:
@@ -87,7 +86,7 @@ class Demotivator:
         if frame is None:
             indent = min(self.image.size) // 50
             padding = Indentation(min(self.image.size) // 50)
-            margin = Indentation([indent * 4, indent * 4, indent * 12])
+            margin = Indentation(indent * 4, indent * 4, indent * 12)
             frame = self.Frame(padding, margin)
 
         framed = frame.draw(self.image)
