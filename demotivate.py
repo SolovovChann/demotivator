@@ -136,7 +136,7 @@ def create_demotivator(
 
     demo = Demotivator(source, font.buffer).demotivate(caption)
     demo.save(output)
-    click.echo('File "%s" successfuly saved')
+    click.echo('File "%s" successfuly saved' % output.name)
 
     return demo
 
