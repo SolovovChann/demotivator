@@ -1,6 +1,6 @@
 #!/usr/bin/env python3.10
 import re
-from io import IOBase
+from io import IOBase, TextIOWrapper
 from pathlib import Path
 from typing import TypeAlias
 from urllib import request
@@ -126,7 +126,7 @@ def create_demotivator(
     caption: str,
     source: str,
     output: click.File,
-    font: click.File
+    font: TextIOWrapper
 ) -> Image.Image:
     """Make demotivator from source image"""
     regex = re.compile(r'https?:\/\/.+', re.M)
@@ -134,7 +134,7 @@ def create_demotivator(
     if isinstance(source, str) and regex.match(source):
         source = Image.open(request.urlopen(source))
 
-    demo = Demotivator(source, font).demotivate(caption)
+    demo = Demotivator(source, font.buffer).demotivate(caption)
     demo.save(output)
     click.echo('File "%s" successfuly saved')
 
