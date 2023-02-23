@@ -67,3 +67,21 @@ margin = ImageIndentation.css_like(25, 25, 80)
 
 demotivator = Demotivator(font, border, margin, padding, '#000', '#fff')
 ```
+
+#### Demotivator.**demotivate**(_image, caption_)
+
+Создаёт демотиватор из изображения и надписи по шаблону.
+
+```python
+from PIL import Image
+
+image = Image.open('capybara.jpg')
+demotivator.demotivate(image, 'Ха-ха. Карбюратор')
+```
+
+Процесс генерации рамки состоит из трёх частей:
+
+1. К исходному изображению добавляется _padding_ (внутренний отступ)
+1. Таким же отступом рисуется рамка _border_
+1. Добавляется _margin_ (внешний отступ)
+1. Рисуется текст ровно в центре от _margin.bottom_ (нижнего внешнего отступа)
