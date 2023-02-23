@@ -22,3 +22,28 @@
 [![Keanu Reeves is Extremely Horny (cyberpunk 2077 trailer meme)](examples/keanu-reeves-2.jpeg)](https://youtu.be/p1i06QhmraU?t=8)
 
 [![Dank WebM Compilation #102](examples/beauty.jpeg)](https://youtu.be/RxqQYeRosWY?t=335)
+
+## API
+
+### **demotivate**(_image, font, caption, background='#000', foreground='#fff'_)
+
+Добавляет стандартную рамку и текст на входное изображение.
+
+Аргумент **background** отвечает за цвет фона, а **foreground** за цвет рамки и текста.
+
+Размеры текста и рамки высчитываются из размеров изображения.
+
+```python
+from demotivator import demotivate
+
+demotivate('capybara.jpg', 'font.ttf', 'Ха-ха, да. Карбюратор')
+```
+
+В качестве изображение так же можно передать **ссылку** на изображение.
+
+```python
+from demotivator import demotivate
+
+url = 'https://images.unsplash.com/photo-1557431177-36141475c676'
+demotivate(url, 'font.ttf', 'Ха-ха, да. Карбюратор')
+```
