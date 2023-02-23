@@ -1,9 +1,9 @@
 from pathlib import Path
 from unittest import TestCase
 
-from PIL import Image, ImageChops
+from PIL import Image, ImageChops, ImageFont
 
-from demotivator import _load_image
+from demotivator import _load_font, _load_image
 
 base_dir = Path(__file__).parent.parent
 
@@ -44,3 +44,12 @@ class TestLoadImage(TestCase):
 
 class TestLoadFont(TestCase):
     """Test private `_load_font` function"""
+
+    size: int = 16
+    path: Path = Path(base_dir) / 'font.ttf'
+    string: str = str(path)
+    font: ImageFont.FreeTypeFont = ImageFont.truetype(string, size)
+
+    def test_str(self) -> None:
+        font = _load_font(self.string, self.size)
+        self.assertIsInstance(font, ImageFont.FreeTypeFont)
