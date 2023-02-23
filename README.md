@@ -85,3 +85,7 @@ demotivator.demotivate(image, 'Ха-ха. Карбюратор')
 1. Таким же отступом рисуется рамка _border_
 1. Добавляется _margin_ (внешний отступ)
 1. Рисуется текст ровно в центре от _margin.bottom_ (нижнего внешнего отступа)
+
+## _class_ indent.**ImageIndentation**(_left, top, right, bottom_)
+
+Класс предназначен для работы с отступами в пикселях.
