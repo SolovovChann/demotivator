@@ -1,3 +1,4 @@
+import random
 from unittest import TestCase
 
 from PIL import Image
@@ -28,3 +29,12 @@ class TestIndentationIndent(TestCase):
 
 class TestIndentionCssLike(TestCase):
     """Test `Indentation.css_like()` class method"""
+
+    def test_single_value(self) -> None:
+        a = random.randint(0, 100)
+        indent = ImageIndentation.css_like(a)
+
+        self.assertEqual(indent.left, a)
+        self.assertEqual(indent.top, a)
+        self.assertEqual(indent.right, a)
+        self.assertEqual(indent.bottom, a)
