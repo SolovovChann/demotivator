@@ -3,7 +3,7 @@ from unittest import TestCase
 
 from PIL import Image, ImageChops, ImageFont
 
-from demotivator import _load_font, _load_image
+from demotivator import _load_font, _load_image, _is_valid_url
 
 base_dir = Path(__file__).parent.parent
 
@@ -71,3 +71,17 @@ class TestLoadFont(TestCase):
 
 class TestIsValidUrl(TestCase):
     """Test private `_is_valid_url` function"""
+
+    def test_valid_url(self) -> None:
+        self.assertTrue(
+            _is_valid_url('https://youtu.be/dQw4w9WgXcQ')
+        )
+        self.assertTrue(
+            _is_valid_url('https://pbs.twimg.com/media/Di3y9e_X0AE-8nk.jpg')
+        )
+        self.assertTrue(
+            _is_valid_url(
+                'https://media.tenor.com/images/'
+                'ff5faf4a21655f2fe7f93f120ec6b803/tenor.gif'
+            )
+        )
