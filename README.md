@@ -9,6 +9,10 @@
     demotivate capybara.jpg 'Ха-ха, да. Карбюратор' demotivator.jpg
     demotivate capybara.jpg 'Ха-ха, да. Карбюратор' demotivator.jpg --motivate
 
+Результатом исполнения является изображение `demotivator.jpg` следующего вида:
+
+![Demotivated capybara](examples/capybara.jpg)
+
 За предоставленную [капибару](https://unsplash.com/photos/yObnHvuwkiY) спасибо [Dušan veverkolog](https://unsplash.com/@veverkolog).
 
 ## Примеры
