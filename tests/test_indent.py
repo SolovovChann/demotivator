@@ -38,6 +38,8 @@ class TestIndentationIndent(TestCase):
 class TestIndentionCssLike(TestCase):
     """Test `Indentation.css_like()` class method"""
 
+    pool = range(100)
+
     def test_single_value(self) -> None:
         a = random.randint(0, 100)
         indent = ImageIndentation.css_like(a)
@@ -45,4 +47,13 @@ class TestIndentionCssLike(TestCase):
         self.assertEqual(indent.left, a)
         self.assertEqual(indent.top, a)
         self.assertEqual(indent.right, a)
+        self.assertEqual(indent.bottom, a)
+
+    def test_two_values(self) -> None:
+        a, b = _random_list(2, self.pool)
+        indent = ImageIndentation.css_like(a, b)
+
+        self.assertEqual(indent.left, b)
+        self.assertEqual(indent.top, a)
+        self.assertEqual(indent.right, b)
         self.assertEqual(indent.bottom, a)
