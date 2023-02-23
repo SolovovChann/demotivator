@@ -67,3 +67,7 @@ class TestLoadFont(TestCase):
         self.assertRaises(TypeError, _load_font, {})
         self.assertRaises(TypeError, _load_font, [])
         self.assertRaises(TypeError, _load_font, tuple())
+
+
+class TestIsValidUrl(TestCase):
+    """Test private `_is_valid_url` function"""
