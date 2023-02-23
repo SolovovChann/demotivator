@@ -66,3 +66,12 @@ class TestIndentionCssLike(TestCase):
         self.assertEqual(indent.top, a)
         self.assertEqual(indent.right, b)
         self.assertEqual(indent.bottom, c)
+
+    def test_four_values(self) -> None:
+        a, b, c, d = _random_list(4, self.pool)
+        indent = ImageIndentation.css_like(a, b, c, d)
+
+        self.assertEqual(indent.left, a)
+        self.assertEqual(indent.top, b)
+        self.assertEqual(indent.right, c)
+        self.assertEqual(indent.bottom, d)
