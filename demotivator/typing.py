@@ -12,3 +12,5 @@ class Font(Protocol):
 
 
 RGB: TypeAlias = tuple[int, int, int] | tuple[int, int, int, int]
+
+Ink: TypeAlias = str | int | RGB
