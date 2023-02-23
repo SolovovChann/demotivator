@@ -75,3 +75,25 @@ class TestIndentionCssLike(TestCase):
         self.assertEqual(indent.top, b)
         self.assertEqual(indent.right, c)
         self.assertEqual(indent.bottom, d)
+
+    def test_multiple_values(self) -> None:
+        self.assertRaises(
+            TypeError,
+            ImageIndentation.css_like,
+            *_random_list(5, self.pool),
+        )
+        self.assertRaises(
+            TypeError,
+            ImageIndentation.css_like,
+            *_random_list(10, self.pool),
+        )
+        self.assertRaises(
+            TypeError,
+            ImageIndentation.css_like,
+            *_random_list(50, self.pool),
+        )
+        self.assertRaises(
+            TypeError,
+            ImageIndentation.css_like,
+            *_random_list(100, self.pool),
+        )
