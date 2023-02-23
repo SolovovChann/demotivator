@@ -1,6 +1,6 @@
+from functools import reduce
 from pathlib import Path
 from unittest import TestCase
-from functools import reduce
 
 from PIL import Image, ImageFont
 
@@ -45,3 +45,20 @@ class TestDemotivatorDemotivate(TestCase):
 
         self.assertEqual(image.width, width)
         self.assertEqual(image.height, height)
+
+    def test_demotivate_mode(self) -> None:
+        padding = ImageIndentation.css_like(10)
+        border = ImageIndentation.css_like(1)
+        margin = ImageIndentation.css_like(20)
+
+        demotivator = Demotivator(
+            self.font,
+            border,
+            margin,
+            padding,
+            '#000',
+            '#fff',
+        )
+        image = demotivator.demotivate(self.image, '')
+
+        self.assertEqual(image.mode, self.image.mode)
