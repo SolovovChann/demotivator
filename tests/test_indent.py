@@ -97,3 +97,30 @@ class TestIndentionCssLike(TestCase):
             ImageIndentation.css_like,
             *_random_list(100, self.pool),
         )
+
+    def test_undefined_value(self) -> None:
+        self.assertRaises(
+            TypeError,
+            ImageIndentation.css_like,
+            None,
+        )
+        self.assertRaises(
+            TypeError,
+            ImageIndentation.css_like,
+            'random string',
+        )
+        self.assertRaises(
+            TypeError,
+            ImageIndentation.css_like,
+            {'type': 'Random Dict'},
+        )
+        self.assertRaises(
+            TypeError,
+            ImageIndentation.css_like,
+            bytes,
+        )
+        self.assertRaises(
+            TypeError,
+            ImageIndentation.css_like,
+            ['list string'],
+        )
