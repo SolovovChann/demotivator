@@ -6,6 +6,14 @@ from PIL import Image
 from demotivator.indent import ImageIndentation
 
 
+def _random_list(count: int, pool: range) -> list[int]:
+    """Generate N random elements from the range"""
+    return [
+        random.choice(pool)
+        for _ in range(count)
+    ]
+
+
 class TestIndentationIndent(TestCase):
     """Test `Indentation.indent()` method"""
 
