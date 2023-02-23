@@ -85,3 +85,8 @@ class TestIsValidUrl(TestCase):
                 'ff5faf4a21655f2fe7f93f120ec6b803/tenor.gif'
             )
         )
+
+    def test_invalid_url(self) -> None:
+        self.assertFalse(_is_valid_url(''))
+        self.assertFalse(_is_valid_url('dull string'))
+        self.assertFalse(_is_valid_url('( ͡° ͜ʖ ͡°)'))
