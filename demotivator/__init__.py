@@ -67,6 +67,21 @@ def _load_font(
             raise TypeError(f'Font type {type(font)} is not supported')
 
 
+def _load_image(image: Path | str | Image.Image) -> Image.Image:
+    match image:
+        case Path():
+            return Image.open(str(image))
+        case str():
+            if _is_valid_url(image):
+                return _open_image_by_url(image)
+
+            return Image.open(image)
+        case Image.Image():
+            return image
+        case _:
+            raise TypeError(f'Image type {type(image)} is not supported')
+
+
 def _is_valid_url(string: str) -> bool:
     return bool(re.match(r'https?:\/\/.+', string, re.M))
 
