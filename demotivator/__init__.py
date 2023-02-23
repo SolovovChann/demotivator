@@ -1,4 +1,6 @@
-from PIL import Image, ImageDraw
+from pathlib import Path
+
+from PIL import Image, ImageDraw, ImageFont
 
 from demotivator.indent import ImageIndentation
 from demotivator.typing import Color, Font, Ink
@@ -46,3 +48,18 @@ class Demotivator:
         )
 
         return margined
+
+
+def _load_font(
+    font: Path | str | ImageFont.FreeTypeFont,
+    size: int,
+) -> ImageFont.FreeTypeFont:
+    match font:
+        case Path():
+            return ImageFont.truetype(str(font), size)
+        case str():
+            return ImageFont.truetype(font, size)
+        case ImageFont.FreeTypeFont():
+            return font
+        case _:
+            raise TypeError(f'Font type {type(font)} is not supported')
