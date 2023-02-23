@@ -7,6 +7,8 @@ from PIL import Image, ImageDraw, ImageFont
 from demotivator.indent import ImageIndentation
 from demotivator.typing import Color, Font, Ink
 
+__version__ = '0.2.0'
+
 
 class Demotivator:
     font: Font
