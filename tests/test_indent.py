@@ -19,6 +19,12 @@ class TestIndentationIndent(TestCase):
         self.assertEqual(indented.width, width)
         self.assertEqual(indented.height, height)
 
+    def test_indent_mode(self) -> None:
+        indent = ImageIndentation.css_like(10)
+        indented = indent.expand(self.image, '#fff')
+
+        self.assertEqual(indented.mode, self.image.mode)
+
 
 class TestIndentionCssLike(TestCase):
     """Test `Indentation.css_like()` class method"""
