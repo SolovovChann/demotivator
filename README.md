@@ -89,3 +89,17 @@ demotivator.demotivate(image, 'Ха-ха. Карбюратор')
 ## _class_ indent.**ImageIndentation**(_left, top, right, bottom_)
 
 Класс предназначен для работы с отступами в пикселях.
+
+### ImageIndentation.**expand**(_image, color='#000'_)
+
+Отрисовать изображение с отступами. Новые границы красятся в заданный _color_.
+
+```python
+from PIL import Image
+from demotivator.indent import ImageIndentation
+
+indent = ImageIndentation(25, 10, 25, 100)
+image = Image.open('capybara.jpg')
+
+expanded = indent.expand(image)
+```
