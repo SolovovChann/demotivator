@@ -1,3 +1,5 @@
+from PIL import Image, ImageDraw
+
 from demotivator.indent import ImageIndentation
 from demotivator.typing import Color, Font, Ink
 
@@ -27,3 +29,20 @@ class Demotivator:
         self.padding = padding
         self.background = background
         self.foreground = foreground
+
+    def demotivate(self, image: Image.Image, caption: str) -> Image.Image:
+        padding = self.padding.expand(image, self.background)
+        bordered = self.border.expand(padding, self.foreground)
+        margined = self.margin.expand(bordered, self.background)
+
+        text_x = int(margined.width / 2)
+        text_y = margined.height - int(self.margin.bottom / 2)
+        text_position = text_x, text_y
+
+        overlay = ImageDraw.Draw(margined)
+        overlay.multiline_text(
+            text_position, caption, self.foreground, self.font, 'mm',
+            align='center'
+        )
+
+        return margined
