@@ -47,3 +47,23 @@ from demotivator import demotivate
 url = 'https://images.unsplash.com/photo-1557431177-36141475c676'
 demotivate(url, 'font.ttf', 'Ха-ха, да. Карбюратор')
 ```
+
+### _class_ **Demotivator**(_font, border, margin, padding, background, foreground_)
+
+Класс для создания шаблонов демотиваторов.
+
+_Border_, _margin_ и _padding_ задаются в виде объектов класса **ImageIndentation**.
+
+```python
+from PIL import ImageFont
+from demotivator import Demotivator
+from demotivator.indent import ImageIndentation
+
+font = ImageFont.truetype()
+
+border = ImageIndentation.css_like(3)
+padding = ImageIndentation.css_like(8)
+margin = ImageIndentation.css_like(25, 25, 80)
+
+demotivator = Demotivator(font, border, margin, padding, '#000', '#fff')
+```
