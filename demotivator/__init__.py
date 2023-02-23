@@ -1,3 +1,4 @@
+import re
 from pathlib import Path
 from urllib import request
 
@@ -64,6 +65,10 @@ def _load_font(
             return font
         case _:
             raise TypeError(f'Font type {type(font)} is not supported')
+
+
+def _is_valid_url(string: str) -> bool:
+    return bool(re.match(r'https?:\/\/.+', string, re.M))
 
 
 def _open_image_by_url(url: str) -> Image.Image:
