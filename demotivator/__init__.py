@@ -1,4 +1,5 @@
 from pathlib import Path
+from urllib import request
 
 from PIL import Image, ImageDraw, ImageFont
 
@@ -63,3 +64,8 @@ def _load_font(
             return font
         case _:
             raise TypeError(f'Font type {type(font)} is not supported')
+
+
+def _open_image_by_url(url: str) -> Image.Image:
+    response = request.urlopen(url)
+    return Image.open(response)
