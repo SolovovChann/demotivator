@@ -53,3 +53,7 @@ class TestLoadFont(TestCase):
     def test_str(self) -> None:
         font = _load_font(self.string, self.size)
         self.assertIsInstance(font, ImageFont.FreeTypeFont)
+
+    def test_path(self) -> None:
+        font = _load_font(self.path, self.size)
+        self.assertIsInstance(font, ImageFont.FreeTypeFont)
