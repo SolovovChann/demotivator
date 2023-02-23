@@ -52,6 +52,38 @@ class Demotivator:
         return margined
 
 
+def demotivate(
+    image: Path | str | Image.Image,
+    font: Path | str | ImageFont.FreeTypeFont,
+    caption: str,
+    background: Color = '#000',
+    foreground: Ink = '#fff',
+) -> Image.Image:
+    """Make a demotivator with a default frame!"""
+    image = _load_image(image)
+    unit = min(image.size) // 100
+    pil_font = _load_font(font, int(unit * 8))
+
+    border = ImageIndentation.css_like(int(unit * 0.5))
+    padding = ImageIndentation.css_like(int(unit * 2))
+    margin = ImageIndentation.css_like(
+        int(unit * 8),
+        int(unit * 8),
+        int(unit * 25),
+    )
+
+    demotivator = Demotivator(
+        pil_font,
+        border,
+        margin,
+        padding,
+        background,
+        foreground,
+    )
+
+    return demotivator.demotivate(image, caption)
+
+
 def _load_font(
     font: Path | str | ImageFont.FreeTypeFont,
     size: int,
