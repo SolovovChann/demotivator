@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "demotivator"
+requires-python = ">=3.10"
+dynamic = ["version", "readme"]
+license.file = "LICENSE"
+dependencies = [
+    "Pillow",
+]
+
+[tool.setuptools.dynamic]
+version = {attr = "demotivator.__version__"}
+readme = {file = ["README.md"]}
+
+[project.scripts]
+demotivate = "demotivator.__main__:create_demotivator"
