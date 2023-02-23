@@ -61,3 +61,9 @@ class TestLoadFont(TestCase):
     def test_image(self) -> None:
         font = _load_font(self.font, self.size)
         self.assertIsInstance(font, ImageFont.FreeTypeFont)
+
+    def test_type_error(self) -> None:
+        self.assertRaises(TypeError, _load_font, None)
+        self.assertRaises(TypeError, _load_font, {})
+        self.assertRaises(TypeError, _load_font, [])
+        self.assertRaises(TypeError, _load_font, tuple())
