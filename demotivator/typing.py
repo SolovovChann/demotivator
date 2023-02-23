@@ -1,4 +1,4 @@
-from typing import Protocol
+from typing import Protocol, TypeAlias
 
 
 class Font(Protocol):
@@ -9,3 +9,6 @@ class Font(Protocol):
         direction=...,
         features=...
     ): ...
+
+
+RGB: TypeAlias = tuple[int, int, int] | tuple[int, int, int, int]
