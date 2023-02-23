@@ -48,3 +48,7 @@ def create_demotivator() -> None:
     )
 
     demotivator.save(args.dest)
+
+
+if __name__ == '__main__':
+    create_demotivator()
