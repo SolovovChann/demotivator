@@ -25,6 +25,11 @@ class TestLoadImage(TestCase):
         self.assertIsInstance(image, Image.Image)
         self.assertTrue(_images_are_similar(image, self.image))
 
+    def test_path(self) -> None:
+        image = _load_image(self.path).convert('RGB')
+        self.assertIsInstance(image, Image.Image)
+        self.assertTrue(_images_are_similar(image, self.image))
+
 
 class TestLoadFont(TestCase):
     """Test private `_load_font` function"""
