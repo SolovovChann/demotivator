@@ -63,7 +63,7 @@ from PIL import ImageFont
 from demotivator import Demotivator
 from demotivator.indent import ImageIndentation
 
-font = ImageFont.truetype()
+font = ImageFont.truetype('font.ttf')
 
 border = ImageIndentation.css_like(3)
 padding = ImageIndentation.css_like(8)
